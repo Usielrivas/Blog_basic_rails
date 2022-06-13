@@ -1,11 +1,40 @@
 class ArticlesController < ApplicationController
+
+  before_action :find_article, except: [:new,:create,:update,:index]
+
+
+  def index
+    @articles= Article.all
+  end
+
+  def show
+  end
+
   def new
     @article= Article.new
-    @article.title= 'Demo'
   end
 
   def create
-    @article= Article.create(title: params[:article][:title])
-    render json: @article
+    @article= Article.create(title: params[:article][:title],content: params[:article][:content])
+    redirect_to @article
   end
+
+  def edit
+  end
+
+  def update
+    @article.update(title: params[:article][:title],content: params[:article][:content])
+    redirect_to @article
+    # render json: @article
+  end
+
+  def destroy
+    @article.destroy
+    redirect_to root_url, status: :see_other
+  end
+
+  def find_article
+    @article= Article.find(params[:id])
+  end
+
 end
