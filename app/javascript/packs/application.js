@@ -20,4 +20,5 @@
 import "../css/style.scss"
 import "bootstrap/dist/js/bootstrap.bundle"
 import "trix"
+import "@rails/actiontext"
 // import "@hotwired/turbo-rails"
