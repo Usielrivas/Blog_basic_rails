@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/edit'
+  resources :categories
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -6,7 +8,8 @@ Rails.application.routes.draw do
   # root "articles#index"
   root to: "home#index"
 
-
+  get "perfil", to: "users#edit"
+  resources :users, only: [:update]
   resources :articles do
   get 'user/:user_id', to: 'articles#from_author', on: :collection
   end

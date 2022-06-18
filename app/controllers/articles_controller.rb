@@ -17,19 +17,25 @@ class ArticlesController < ApplicationController
 
   def new
     @article= Article.new
+    @categories= Category.all
   end
 
   def create
     @article= current_user.articles.create(article_params)
+    @categories= Category.all
+    @article.save_categories
+    # render json: @article.categories
     redirect_to @article
   end
 
   def edit
+    @categories= Category.all
   end
 
   def update
     # @article.user= current_user
     @article.update(article_params)
+    @article.save_categories
     redirect_to @article
     # render json: @article
   end
@@ -44,7 +50,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title,:content)
+    params.require(:article).permit(:title,:content,category_elements: [])
   end
 
 end
